@@ -49,7 +49,7 @@ class Server(object):
         return result
 
 
-server = Server('PROJECT_NAME')
+server = Server('gpcgdDemo')
 with open(r"PATH TO YOUR IMAGE", 'rb') as f:
     img = f.read()
 start_time = int(time.time() * 1000)

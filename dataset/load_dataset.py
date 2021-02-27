@@ -8,7 +8,7 @@
 @Software: PyCharm
 """
 
-from PIL import Image
+from PIL import Image, ImageFile
 from config import Config
 from utils.constants import *
 from utils.exception import *
@@ -23,6 +23,7 @@ import torchvision
 class LoadDataset(Dataset):
 
     def __init__(self, project_name, transform=None, mode=RunMode.Train):
+        ImageFile.LOAD_TRUNCATED_IMAGES = True
         self.project_name = project_name
         self.transform = transform
         self.base_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "projects",
@@ -43,10 +44,10 @@ class LoadDataset(Dataset):
             self.tensors.append(filename)
             if self.word:
                 # self.label.append([self.charset.index(filename.split('\\')[-1].split('_')[0])])
-                self.label.append([self.charset.index(filename.split('\\')[-1].split('_')[0])])
+                self.label.append([self.charset.index(filename.split(os.sep)[-1].split('_')[0])])
             else:
                 idx_list = []
-                for item in list(filename.split('\\')[-1].split('_')[0]):
+                for item in list(filename.split(os.sep)[-1].split('_')[0]):
                     idx = self.charset.index(item)
                     idx_list.append(idx)
                 self.label.append(idx_list)

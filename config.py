@@ -68,5 +68,5 @@ class Config(object):
     def load_config(self):
         config_path = os.path.join(self.base_path, self.project_name, "config.yaml")
         with open(config_path, 'r', encoding="utf-8") as f:
-            config_dict = yaml.load(f, Loader=yaml.FullLoader)
+            config_dict = yaml.safe_load(f)
         return config_dict
